@@ -54,6 +54,11 @@ class DeezerClient:
         r = await self.api_request("deezer.pageSearch", data)
         return r["results"]
 
+    async def search_suggesions(self, query: str) -> dict:
+        data = {"QUERY": query}
+        r = await self.api_request("search_getSuggestedQueries", data)
+        return r["results"]
+
     async def get_track_info(self, track_id: str) -> dict:
         data = {"sng_id": track_id}
         r = await self.api_request("song.getData", data)
@@ -63,12 +68,14 @@ class DeezerClient:
 
         return r["results"]
 
+    # Unused, for now
     async def get_lyrics(self, id: int) -> dict:
         data = {"sng_id": id}
         r = await self.api_request("song.getLyrics", data)
 
         return r["results"]
 
+    # Unused, for now
     async def isrc_to_id(self, isrc: str) -> int:
         url = f"https://api.deezer.com/2.0/track/isrc:{isrc}"
         r = await self.session.get(url)

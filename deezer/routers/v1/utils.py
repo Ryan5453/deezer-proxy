@@ -44,6 +44,12 @@ async def inject_id3(
 
     return audio_data.getvalue()
 
+def search_suggestion_parser(response: dict) -> SearchSuggestionsResponse:
+    return SearchSuggestionsResponse(
+        results=[
+            result["QUERY"] for result in response["SUGGESTION"]
+        ]
+    )
 
 def generate_artwork(type: str, hash: str) -> List[Artwork]:
     if not hash:

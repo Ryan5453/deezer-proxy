@@ -14,7 +14,7 @@ from deezer.core.redis import redis
 from deezer.routers.v1 import router
 from deezer.routers.v1.client import DeezerClient
 from deezer.routers.v1.models import DeezerError, SearchResults, TrackNotFoundError
-from deezer.routers.v1.utils import inject_id3, search_parser
+from deezer.routers.v1.utils import inject_id3, search_parser, search_suggestion_parser
 
 
 @router.get(
@@ -37,6 +37,27 @@ async def search(query: str) -> SearchResults:
     await client.session.aclose()
 
     return search_parser(response)
+
+@router.get(
+    "/search/suggestions",
+    summary="Get search suggestions for a query.",
+    response_model=SearchResults,
+    responses={
+        401: {"model": NoAuthorizationHeaderError},
+        403: {"model": InvalidAuthorizationHeaderError},
+        422: {"model": ValidationError},
+        500: {"model": DeezerError},
+    },
+)
+async def search(query: str) -> SearchResults:
+    client = DeezerClient()
+    await client.setup_client()
+
+    response = await client.search_suggesions(query)
+    await client.session.aclose()
+
+    return search_suggestion_parser(response)
+
 
 
 @router.get(

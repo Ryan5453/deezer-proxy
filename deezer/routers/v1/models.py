@@ -1,6 +1,11 @@
+from doctest import Example
 from typing import List, Optional, Union
 
 from pydantic import BaseModel, Field
+
+
+class SearchSuggestionsResponse(BaseModel):
+    results: List[str] = Field(..., example=["taylor swift", "taylor swift - cardigan", "taylor swift - betty"])
 
 
 class DeezerError(BaseModel):
