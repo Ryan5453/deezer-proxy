@@ -1,0 +1,114 @@
+{
+    "SNG_ID": "1124578952",
+    "PRODUCT_TRACK_ID": "849635592",
+    "UPLOAD_ID": 0,
+    "SNG_TITLE": "Get Down",
+    "ART_ID": "50096702",
+    "PROVIDER_ID": "98",
+    "ART_NAME": "Alegant",
+    "ARTIST_IS_DUMMY": false,
+    "ARTISTS": [
+        {
+            "ART_ID": "50096702",
+            "ROLE_ID": "0",
+            "ARTISTS_SONGS_ORDER": "0",
+            "ART_NAME": "Alegant",
+            "ARTIST_IS_DUMMY": false,
+            "ART_PICTURE": "9e96ff5c34ad6c8afcc31129110c3f5d",
+            "RANK": "242811",
+            "LOCALES": [],
+            "SMARTRADIO": 1,
+            "__TYPE__": "artist"
+        },
+        {
+            "ART_ID": "275306",
+            "ROLE_ID": "0",
+            "ARTISTS_SONGS_ORDER": "1",
+            "ART_NAME": "Tube & Berger",
+            "ARTIST_IS_DUMMY": false,
+            "ART_PICTURE": "29d852c2da58f3d0c387c3d9319ac802",
+            "RANK": "401744",
+            "LOCALES": {
+                "lang_en": {
+                    "name": "Tube & Berger"
+                }
+            },
+            "SMARTRADIO": 1,
+            "__TYPE__": "artist"
+        }
+    ],
+    "ALB_ID": "182767582",
+    "ALB_TITLE": "False Gods EP",
+    "TYPE": 0,
+    "VIDEO": false,
+    "DURATION": "277",
+    "ALB_PICTURE": "4c1ca634b6b92eb3d2667735c42faa20",
+    "ART_PICTURE": "9e96ff5c34ad6c8afcc31129110c3f5d",
+    "RANK_SNG": "333693",
+    "FILESIZE_AAC_64": "0",
+    "FILESIZE_MP3_64": "0",
+    "FILESIZE_MP3_128": "4437471",
+    "FILESIZE_MP3_256": "0",
+    "FILESIZE_MP3_320": "0",
+    "FILESIZE_MP4_RA1": "0",
+    "FILESIZE_MP4_RA2": "0",
+    "FILESIZE_MP4_RA3": "0",
+    "FILESIZE_MHM1_RA1": "0",
+    "FILESIZE_MHM1_RA2": "0",
+    "FILESIZE_MHM1_RA3": "0",
+    "FILESIZE_FLAC": "0",
+    "FILESIZE": "4437471",
+    "GAIN": "-8.3",
+    "MEDIA_VERSION": "3",
+    "DISK_NUMBER": "1",
+    "TRACK_NUMBER": "1",
+    "TRACK_TOKEN": "AAAAAWMwrOZjMcYmDcmquwID2JqDY-6xynKbRPyasX75AKguonP03jzeHm5Pnl6TCps0AT1ldSQIg_eW2BaoLCW9K6T4JUNzlTop8ikzaUe-CLB5gfNhRBQOKwp9hjiY6sk-xgl9PdpuLcQqjNyj",
+    "TRACK_TOKEN_EXPIRE": 1664206374,
+    "VERSION": "(Original Mix)",
+    "MEDIA": [
+        {
+            "TYPE": "preview",
+            "HREF": "https://cdns-preview-d.dzcdn.net/stream/c-dbd89803e50ea28cbcd4319410aff9b3-3.mp3"
+        }
+    ],
+    "EXPLICIT_LYRICS": "0",
+    "RIGHTS": {
+        "STREAM_ADS_AVAILABLE": true,
+        "STREAM_ADS": "2000-01-01",
+        "STREAM_SUB_AVAILABLE": true,
+        "STREAM_SUB": "2000-01-01"
+    },
+    "ISRC": "DEW872007556",
+    "HIERARCHICAL_TITLE": "",
+    "SNG_CONTRIBUTORS": {
+        "main_artist": [
+            "Alegant",
+            "Tube & Berger"
+        ],
+        "composer": [
+            "Arndt Roerig",
+            "Marko Vidovic",
+            "Micha Schmid-Meil"
+        ],
+        "author": [
+            "Arndt Roerig",
+            "Marko Vidovic",
+            "Micha Schmid-Meil"
+        ],
+        "music publisher": [
+            "Kittball Publishing"
+        ]
+    },
+    "LYRICS_ID": 0,
+    "EXPLICIT_TRACK_CONTENT": {
+        "EXPLICIT_LYRICS_STATUS": 0,
+        "EXPLICIT_COVER_STATUS": 2
+    },
+    "DATE_START": "2000-01-01",
+    "DATE_START_PREMIUM": "2000-01-01",
+    "S_MOD": 1,
+    "S_PREMIUM": 1,
+    "STATUS": 1,
+    "HAS_LYRICS": false,
+    "__TYPE__": "song"
+}
