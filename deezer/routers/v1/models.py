@@ -1,11 +1,8 @@
-from doctest import Example
 from typing import List, Optional, Union
 
 from pydantic import BaseModel, Field
 
-
-class SearchSuggestionsResponse(BaseModel):
-    results: List[str] = Field(..., example=["taylor swift", "taylor swift - cardigan", "taylor swift - betty"])
+# Shared models
 
 
 class DeezerError(BaseModel):
@@ -15,9 +12,7 @@ class DeezerError(BaseModel):
 
 
 class TrackNotFoundError(BaseModel):
-    error: str = Field(
-        ..., example="The track you are trying to download could not be found."
-    )
+    error: str = Field(..., example="The track you specified could not be found.")
 
 
 class Artwork(BaseModel):
@@ -28,6 +23,50 @@ class Artwork(BaseModel):
     size: str = Field(..., example="large")
     width: int = Field(..., example=1000)
     height: int = Field(..., example=1000)
+
+
+# Models for the /v1/track/info/:id endpoint
+
+
+class AlbumTrackInfo(BaseModel):
+    name: str
+    id: int
+    artwork: List[Artwork]
+
+
+class AdditionalArtistTrackInfo(BaseModel):
+    name: str
+    id: int
+    artwork: List[Artwork]
+
+
+class ArtistTrackInfo(BaseModel):
+    name: str
+    id: int
+    additional: List[AdditionalArtistTrackInfo]
+
+
+class TrackInfoResponse(BaseModel):
+    name: str
+    id: int
+    isrc: str
+    track_number: int
+    explicit: bool
+    duration: int
+    album: AlbumTrackInfo
+    artist: ArtistTrackInfo
+
+
+# Models for the /v1/search/suggestions endpoint
+
+
+class SearchSuggestionsResponse(BaseModel):
+    results: List[str] = Field(
+        ..., example=["taylor swift", "taylor swift - cardigan", "taylor swift - betty"]
+    )
+
+
+# Models for the /v1/search endpoint
 
 
 class ArtistSearchResult(BaseModel):

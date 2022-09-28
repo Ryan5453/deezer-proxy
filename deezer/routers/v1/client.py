@@ -75,7 +75,6 @@ class DeezerClient:
 
         return r["results"]
 
-    # Unused, for now
     async def isrc_to_id(self, isrc: str) -> int:
         url = f"https://api.deezer.com/2.0/track/isrc:{isrc}"
         r = await self.session.get(url)

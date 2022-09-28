@@ -13,13 +13,13 @@ from deezer.core.models import (
 from deezer.core.redis import redis
 from deezer.routers.v1 import router
 from deezer.routers.v1.client import DeezerClient
-from deezer.routers.v1.models import DeezerError, SearchResults, TrackNotFoundError
-from deezer.routers.v1.utils import inject_id3, search_parser, search_suggestion_parser
+from deezer.routers.v1.models import *
+from deezer.routers.v1.utils import *
 
 
 @router.get(
     "/search",
-    summary="Search for a track, album, or playlist on Deezer.",
+    summary="Search for a track, album, or playlist.",
     response_model=SearchResults,
     responses={
         401: {"model": NoAuthorizationHeaderError},
@@ -38,6 +38,7 @@ async def search(query: str) -> SearchResults:
 
     return search_parser(response)
 
+
 @router.get(
     "/search/suggestions",
     summary="Get search suggestions for a query.",
@@ -49,7 +50,7 @@ async def search(query: str) -> SearchResults:
         500: {"model": DeezerError},
     },
 )
-async def search(query: str) -> SearchResults:
+async def search_suggestions(query: str) -> SearchResults:
     client = DeezerClient()
     await client.setup_client()
 
@@ -58,6 +59,49 @@ async def search(query: str) -> SearchResults:
 
     return search_suggestion_parser(response)
 
+
+@router.get(
+    "/track/info/{id}",
+    summary="Get track info.",
+    response_model=TrackInfoResponse,
+    responses={
+        401: {"model": NoAuthorizationHeaderError},
+        403: {"model": InvalidAuthorizationHeaderError},
+        404: {"model": TrackNotFoundError},
+        422: {"model": ValidationError},
+        500: {"model": DeezerError},
+    },
+)
+async def track_info(id: str) -> TrackInfoResponse:
+    """
+    The `id` path parameter is the track ID. Alternatively, you can prefix an isrc with `isrc:` to get the track info for that isrc.
+    Example: `/v1/track/info/isrc:USUM71900001`
+    """
+    client = DeezerClient()
+    await client.setup_client()
+
+    try:
+        id = int(id)
+    except:
+        if id.startswith("isrc:"):
+            id = await client.isrc_to_id(id[5:])
+            if not id:
+                raise HTTPException(
+                    status_code=404,
+                    detail="The track you specified could not be found.",
+                )
+        else:
+            raise HTTPException(
+                status_code=404, detail="The track you specified could not be found."
+            )
+
+    response = await client.get_track_info(id)
+    await client.session.aclose()
+
+    if not response:
+        raise HTTPException(status_code=404, detail="Track not found.")
+
+    return track_info_mapper(response)
 
 
 @router.get(
@@ -74,7 +118,7 @@ async def search(query: str) -> SearchResults:
         500: {"model": DeezerError},
     },
 )
-async def download(
+async def track_download(
     request: Request, id: int, metadata: Optional[bool] = True
 ) -> Response:
     """

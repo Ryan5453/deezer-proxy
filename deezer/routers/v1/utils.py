@@ -8,6 +8,38 @@ from deezer.routers.v1.models import *
 from deezer.routers.v1.models import SearchResults
 
 
+def track_info_artist_mapper(data: dict) -> ArtistTrackInfo:
+    return ArtistTrackInfo(
+        name=data["ART_NAME"],
+        id=int(data["ART_ID"]),
+        additional=[
+            AdditionalArtistTrackInfo(
+                name=artist["ART_NAME"],
+                id=int(artist["ART_ID"]),
+                artwork=generate_artwork("artist", artist["ART_PICTURE"]),
+            )
+            for artist in data["ARTISTS"]
+        ],
+    )
+
+
+def track_info_mapper(data: dict) -> TrackInfoResponse:
+    return TrackInfoResponse(
+        name=data["SNG_TITLE"],
+        id=data["SNG_ID"],
+        isrc=data["ISRC"],
+        track_number=data["TRACK_NUMBER"],
+        explicit=data["EXPLICIT_LYRICS"] == "1",
+        duration=data["DURATION"],
+        artist=track_info_artist_mapper(data),
+        album=AlbumTrackInfo(
+            name=data["ALB_TITLE"],
+            id=data["ALB_ID"],
+            artwork=generate_artwork("album", data["ALB_PICTURE"]),
+        ),
+    )
+
+
 async def inject_id3(
     client: DeezerClient, track_info: dict, audio_data: bytes
 ) -> bytes:
@@ -44,12 +76,12 @@ async def inject_id3(
 
     return audio_data.getvalue()
 
+
 def search_suggestion_parser(response: dict) -> SearchSuggestionsResponse:
     return SearchSuggestionsResponse(
-        results=[
-            result["QUERY"] for result in response["SUGGESTION"]
-        ]
+        results=[result["QUERY"] for result in response["SUGGESTION"]]
     )
+
 
 def generate_artwork(type: str, hash: str) -> List[Artwork]:
     if not hash:
