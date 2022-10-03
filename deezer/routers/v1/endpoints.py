@@ -255,7 +255,7 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
     },
 )
 async def track_download(
-    request: Request, id: int, image: Optional[bool] = True
+    request: Request, id: str, image: Optional[bool] = True
 ) -> Response:
     """
     This endpoint is used to download a track. The audio codec is MP3, and the bitrate is 128kbps.
