@@ -41,7 +41,7 @@ def track_info_mapper(data: dict) -> TrackInfoResponse:
 
 
 async def inject_id3(
-    client: DeezerClient, track_info: dict, audio_data: bytes
+    client: DeezerClient, track_info: dict, audio_data: bytes, image: bool
 ) -> bytes:
     audio_data = BytesIO(audio_data)
 
@@ -63,14 +63,15 @@ async def inject_id3(
     audio.add(TALB(encoding=3, text=album_name))
     audio.add(TRCK(encoding=3, text=track_number))
     audio.add(TDRC(encoding=3, text=release_date))
-
-    try:
-        album_art = (await client.session.get(album_art_url)).read()
-        audio.add(
-            APIC(encoding=3, mime="image/jpeg", type=3, desc="Cover", data=album_art)
-        )
-    except Exception:
-        pass  # In the case of an error, we don't want to fail the whole metadata injection because it's not that important
+    
+    if image:
+        try:
+            album_art = (await client.session.get(album_art_url)).read()
+            audio.add(
+                APIC(encoding=3, mime="image/jpeg", type=3, desc="Cover", data=album_art)
+            )
+        except Exception:
+            pass  # In the case of an error, we don't want to fail the whole metadata injection because it's not that important
 
     audio.save(audio_data, v2_version=3)
 

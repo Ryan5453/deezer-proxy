@@ -260,10 +260,34 @@ async def track_download(
     """
     This endpoint is used to download a track. The audio codec is MP3, and the bitrate is 128kbps.
 
-    The `id` path parameter is the ID of the track you want to download. You can get this ID by searching for a track using the `/search` endpoint.
+    The `id` path parameter is the ID of the track you want to download. You can get this ID by searching for a track using the `/search` endpoint. Alternatively, you can prefix an isrc with `isrc:` to get the track with that isrc.
 
     The `image` parameter is used to determine whether or not to inject image ID3 tag into the track. This makes the file size slightly larger and makes the request take longer to complete. It is enabled by default.
     """
+    start, end = 0, None
+    range_header = request.headers.get("Range")
+    if range_header:
+        try:
+            range = range_header.split("bytes")[1].strip("=")
+
+            start, end = range.split("-")
+            if not end:
+                end = None
+            if not start:
+                start = 0
+
+            start = int(start)
+            if end:
+                end = int(end)
+        except:
+            pass # We already set the range, so it'll fall back to the default range
+
+    def process_range(data: bytes):
+        if not end:
+            return data[start:]
+        else:
+            return data[start:end]
+
     with contextlib.suppress(Exception):
         id = int(id)
         redis_result = await redis.get(
@@ -283,7 +307,7 @@ async def track_download(
                 duration * 3,
             )
             return Response(
-                content=file,
+                content=process_range(file),
                 media_type="audio/mpeg",
                 headers={
                     "Content-Disposition": f"attachment; filename={file_name}",
@@ -330,7 +354,7 @@ async def track_download(
             duration * 3,
         )
         return Response(
-            content=file,
+            content=process_range(file),
             media_type="audio/mpeg",
             headers={
                 "Content-Disposition": f"attachment; filename={file_name}",
@@ -345,8 +369,7 @@ async def track_download(
     audio_streamer = client.download_track(track_info)
     audio_data = b"".join([a async for a in audio_streamer])
 
-    if image:
-        audio_data = await inject_id3(client, track_info, audio_data)
+    audio_data = await inject_id3(client, track_info, audio_data, image)
 
     await client.session.aclose()
 
@@ -364,7 +387,7 @@ async def track_download(
 
     file_name = track_info["SNG_TITLE"] + " - " + track_info["ART_NAME"] + ".mp3"
     return Response(
-        content=audio_data,
+        content=process_range(audio_data),
         media_type="audio/mpeg",
         headers={
             "Content-Disposition": f"attachment; filename={file_name}",
