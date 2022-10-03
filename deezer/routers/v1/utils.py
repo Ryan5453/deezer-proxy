@@ -155,7 +155,7 @@ def playlist_mapper(data: dict) -> PlaylistSearchResult:
     )
 
 
-def search_parser(response: dict) -> dict:
+def search_parser(response: dict) -> SearchResults:
     top_result = None
     if response.get("TOP_RESULT"):
         top_result = response["TOP_RESULT"][0]

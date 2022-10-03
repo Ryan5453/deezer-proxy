@@ -1,10 +1,12 @@
 import base64
+import contextlib
 import json
 from typing import Optional
 
 from fastapi import HTTPException, Request
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse, Response
 
+from deezer.core.config import *
 from deezer.core.models import (
     InvalidAuthorizationHeaderError,
     NoAuthorizationHeaderError,
@@ -29,20 +31,33 @@ from deezer.routers.v1.utils import *
         500: {"model": DeezerError},
     },
 )
-async def search(query: str) -> SearchResults:
+async def search(query: str) -> Union[SearchResults, JSONResponse]:
+    redis_result = await redis.get(
+        json.dumps({"endpoint": "/v1/search", "query": query})
+    )
+    if redis_result:
+        await redis.expire(
+            json.dumps({"endpoint": "/v1/search", "query": query}), search_ttl
+        )
+        return JSONResponse(content=redis_result, status_code=200)
+
     client = DeezerClient()
     await client.setup_client()
 
     response = await client.search(query)
     await client.session.aclose()
 
-    return search_parser(response)
+    r = search_parser(response)
+    await redis.set(
+        json.dumps({"endpoint": "/v1/search", "query": query}), r.json(), ex=search_ttl
+    )
+    return r
 
 
 @router.get(
     "/search/suggestions",
     summary="Get search suggestions for a query.",
-    response_model=SearchResults,
+    response_model=SearchSuggestionsResponse,
     responses={
         401: {"model": NoAuthorizationHeaderError},
         403: {"model": InvalidAuthorizationHeaderError},
@@ -50,14 +65,32 @@ async def search(query: str) -> SearchResults:
         500: {"model": DeezerError},
     },
 )
-async def search_suggestions(query: str) -> SearchResults:
+async def search_suggestions(
+    query: str,
+) -> Union[SearchSuggestionsResponse, JSONResponse]:
+    redis_result = await redis.get(
+        json.dumps({"endpoint": "/v1/search/suggestions", "query": query})
+    )
+    if redis_result:
+        await redis.expire(
+            json.dumps({"endpoint": "/v1/search/suggestions", "query": query}),
+            search_suggestions_ttl,
+        )
+        return JSONResponse(content=redis_result, status_code=200)
+
     client = DeezerClient()
     await client.setup_client()
 
     response = await client.search_suggesions(query)
     await client.session.aclose()
 
-    return search_suggestion_parser(response)
+    r = search_suggestion_parser(response)
+    await redis.set(
+        json.dumps({"endpoint": "/v1/search/suggestions", "query": query}),
+        r.json(),
+        ex=search_suggestions_ttl,
+    )
+    return r
 
 
 @router.get(
@@ -72,11 +105,19 @@ async def search_suggestions(query: str) -> SearchResults:
         500: {"model": DeezerError},
     },
 )
-async def track_info(id: str) -> TrackInfoResponse:
+async def track_info(id: str) -> Union[SearchSuggestionsResponse, JSONResponse]:
     """
     The `id` path parameter is the track ID. Alternatively, you can prefix an isrc with `isrc:` to get the track info for that isrc.
     Example: `/v1/track/info/isrc:USUM71900001`
     """
+    with contextlib.suppress(Exception):
+        id = int(id)
+        redis_result = await redis.get(
+            json.dumps({"endpoint": "/v1/track/info", "id": id})
+        )
+        if redis_result:
+            return JSONResponse(content=redis_result, status_code=200)
+
     client = DeezerClient()
     await client.setup_client()
 
@@ -84,16 +125,27 @@ async def track_info(id: str) -> TrackInfoResponse:
         id = int(id)
     except:
         if id.startswith("isrc:"):
-            id = await client.isrc_to_id(id[5:])
-            if not id:
-                raise HTTPException(
-                    status_code=404,
-                    detail="The track you specified could not be found.",
-                )
+            redis_result = await redis.get(
+                json.dumps({"endpoint": "/v1/isrc-id", "isrc": id[5:]})
+            )
+            if redis_result:
+                id = json.loads(redis_result)["id"]
+            else:
+                id = await client.isrc_to_id(id[5:])
+                if not id:
+                    raise HTTPException(
+                        status_code=404,
+                        detail="The track you specified could not be found.",
+                    )
         else:
             raise HTTPException(
                 status_code=404, detail="The track you specified could not be found."
             )
+
+    # Now we need to check redis again, because we have the the id
+    redis_result = await redis.get(json.dumps({"endpoint": "/v1/track/info", "id": id}))
+    if redis_result:
+        return JSONResponse(content=redis_result, status_code=200)
 
     response = await client.get_track_info(id)
     await client.session.aclose()
@@ -101,7 +153,9 @@ async def track_info(id: str) -> TrackInfoResponse:
     if not response:
         raise HTTPException(status_code=404, detail="Track not found.")
 
-    return track_info_mapper(response)
+    r = track_info_mapper(response)
+    await redis.set(json.dumps({"endpoint": "/v1/track/info", "id": id}), r.json())
+    return r
 
 
 @router.get(
@@ -121,6 +175,17 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
     The `id` path parameter is the track ID. Alternatively, you can prefix an isrc with `isrc:` to get the track info for that isrc.
     Example: `/v1/track/info/isrc:USUM71900001`
     """
+    with contextlib.suppress(Exception):
+        id = int(id)
+        redis_result = await redis.get(
+            json.dumps({"endpoint": "/v1/track/lyrics", "id": id})
+        )
+        if redis_result:
+            await redis.expire(
+                json.dumps({"endpoint": "/v1/track/lyrics", "id": id}), track_lyrics_ttl
+            )
+            return JSONResponse(content=redis_result, status_code=200)
+
     client = DeezerClient()
     await client.setup_client()
 
@@ -128,21 +193,36 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
         id = int(id)
     except:
         if id.startswith("isrc:"):
-            id = await client.isrc_to_id(id[5:])
-            if not id:
-                raise HTTPException(
-                    status_code=404,
-                    detail="The track you specified could not be found.",
-                )
+            redis_result = await redis.get(
+                json.dumps({"endpoint": "/v1/isrc-id", "isrc": id[5:]})
+            )
+            if redis_result:
+                id = json.loads(redis_result)["id"]
+            else:
+                id = await client.isrc_to_id(id[5:])
+                if not id:
+                    raise HTTPException(
+                        status_code=404,
+                        detail="The track you specified could not be found.",
+                    )
         else:
             raise HTTPException(
                 status_code=404, detail="The track you specified could not be found."
             )
 
+    redis_result = await redis.get(
+        json.dumps({"endpoint": "/v1/track/lyrics", "id": id})
+    )
+    if redis_result:
+        await redis.expire(
+            json.dumps({"endpoint": "/v1/track/lyrics", "id": id}), track_lyrics_ttl
+        )
+        return JSONResponse(content=redis_result, status_code=200)
+
     response = await client.get_lyrics(id)
     await client.session.aclose()
 
-    return TrackLyricsResponse(
+    r = TrackLyricsResponse(
         text=response["LYRICS_TEXT"],
         lines=[
             LyricLine(
@@ -152,6 +232,12 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
             if "LYRICS_SYNC_JSON" in response.keys() and line["line"]
         ],
     )
+    await redis.set(
+        json.dumps({"endpoint": "/v1/track/lyrics", "id": id}),
+        r.json(),
+        ex=track_lyrics_ttl,
+    )
+    return r
 
 
 @router.get(
@@ -178,11 +264,71 @@ async def track_download(
 
     The `image` parameter is used to determine whether or not to inject image ID3 tag into the track. This makes the file size slightly larger and makes the request take longer to complete. It is enabled by default.
     """
-    redis_result = await redis.get(json.dumps({"track_id": id, "image": image}))
+    with contextlib.suppress(Exception):
+        id = int(id)
+        redis_result = await redis.get(
+            json.dumps(
+                {"endpoint": "/v1/track/download", "track_id": id, "image": image}
+            )
+        )
+        if redis_result:
+            redis_result = json.loads(redis_result)
+            file_name = redis_result["file_name"]
+            file = base64.b64decode(redis_result["file"])
+            duration = redis_result["duration"]
+            await redis.expire(
+                json.dumps(
+                    {"endpoint": "/v1/track/download", "track_id": id, "image": image}
+                ),
+                duration * 3,
+            )
+            return Response(
+                content=file,
+                media_type="audio/mpeg",
+                headers={
+                    "Content-Disposition": f"attachment; filename={file_name}",
+                    "Content-Length": str(len(file)),
+                },
+            )
+
+    client = DeezerClient()
+    await client.setup_client()
+
+    try:
+        id = int(id)
+    except:
+        if id.startswith("isrc:"):
+            redis_result = await redis.get(
+                json.dumps({"endpoint": "/v1/isrc-id", "isrc": id[5:]})
+            )
+            if redis_result:
+                id = json.loads(redis_result)["id"]
+            else:
+                id = await client.isrc_to_id(id[5:])
+                if not id:
+                    raise HTTPException(
+                        status_code=404,
+                        detail="The track you specified could not be found.",
+                    )
+        else:
+            raise HTTPException(
+                status_code=404, detail="The track you specified could not be found."
+            )
+
+    redis_result = await redis.get(
+        json.dumps({"endpoint": "/v1/track/download", "track_id": id, "image": image})
+    )
     if redis_result:
         redis_result = json.loads(redis_result)
         file_name = redis_result["file_name"]
         file = base64.b64decode(redis_result["file"])
+        duration = redis_result["duration"]
+        await redis.expire(
+            json.dumps(
+                {"endpoint": "/v1/track/download", "track_id": id, "image": image}
+            ),
+            duration * 3,
+        )
         return Response(
             content=file,
             media_type="audio/mpeg",
@@ -191,9 +337,6 @@ async def track_download(
                 "Content-Length": str(len(file)),
             },
         )
-
-    client = DeezerClient()
-    await client.setup_client()
 
     track_info = await client.get_track_info(id)
     if not track_info:
@@ -210,10 +353,13 @@ async def track_download(
     file_name = f"{track_info['SNG_TITLE']} - {track_info['ART_NAME']}.mp3"
     data = {
         "file_name": file_name,
+        "duration": int(track_info["DURATION"]),
         "file": base64.b64encode(audio_data).decode("utf-8"),
     }
     await redis.set(
-        json.dumps({"track_id": id, "image": image}), json.dumps(data)
+        json.dumps({"endpoint": "/v1/track/download", "track_id": id, "image": image}),
+        json.dumps(data),
+        ex=int(track_info["DURATION"]) * 3,
     )
 
     file_name = track_info["SNG_TITLE"] + " - " + track_info["ART_NAME"] + ".mp3"
