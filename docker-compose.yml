@@ -1,0 +1,17 @@
+version: "3" 
+
+services:
+
+  redis:
+    image: redis:alpine
+
+  deezer:
+    build:
+      context: .
+    ports:
+      - "9999:9999"
+    depends_on:
+      - redis
+    env_file: .env
+    links:
+      - redis

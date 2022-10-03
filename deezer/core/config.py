@@ -1,7 +1,6 @@
 import os
-import secrets
 
-auth_key = None # os.getenv("DEEZER_AUTH_KEY")
+auth_key = os.getenv("DEEZER_AUTH_KEY")
 if not auth_key:
     print(
         "DEEZER_AUTH_KEY is not set, allowing all requests. Do not use this in an environment where the port is exposed."
@@ -9,6 +8,7 @@ if not auth_key:
 
 master_key = os.getenv("DEEZER_MASTER_KEY")
 if not master_key:
+    master_key = "abc"
     print("DEEZER_MASTER_KEY is not set, please set it to the correct value.")
     print("Track decryption will not work and MP3 files will be invalid.")
 
