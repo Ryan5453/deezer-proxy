@@ -14,6 +14,9 @@ api_key_header_auth = APIKeyHeader(
 
 
 async def get_api_key(api_key_header: str = Security(api_key_header_auth)):
+    if not auth_key:
+        return  # Let's hope the user knows what they're doing
+
     if not api_key_header:
         raise HTTPException(
             status_code=401, detail="You are missing the Authorization header."

@@ -25,6 +25,20 @@ class Artwork(BaseModel):
     height: int = Field(..., example=1000)
 
 
+# Models for the /v1/track/lyrics/:id endpoint
+
+
+class LyricLine(BaseModel):
+    text: str = Field(..., example="I'm not a human being")
+    start: int = Field(..., example=0)
+    duration: int = Field(..., example=0)
+
+
+class TrackLyricsResponse(BaseModel):
+    text: str = Field(..., example="I'm a little teapot, short and stout")
+    lines: List[LyricLine]
+
+
 # Models for the /v1/track/info/:id endpoint
 
 

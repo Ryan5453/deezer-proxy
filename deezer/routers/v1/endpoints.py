@@ -105,6 +105,56 @@ async def track_info(id: str) -> TrackInfoResponse:
 
 
 @router.get(
+    "/track/lyrics/{id}",
+    summary="Get track lyrics.",
+    response_model=TrackLyricsResponse,
+    responses={
+        401: {"model": NoAuthorizationHeaderError},
+        403: {"model": InvalidAuthorizationHeaderError},
+        404: {"model": TrackNotFoundError},
+        422: {"model": ValidationError},
+        500: {"model": DeezerError},
+    },
+)
+async def track_lyrics(id: str) -> TrackLyricsResponse:
+    """
+    The `id` path parameter is the track ID. Alternatively, you can prefix an isrc with `isrc:` to get the track info for that isrc.
+    Example: `/v1/track/info/isrc:USUM71900001`
+    """
+    client = DeezerClient()
+    await client.setup_client()
+
+    try:
+        id = int(id)
+    except:
+        if id.startswith("isrc:"):
+            id = await client.isrc_to_id(id[5:])
+            if not id:
+                raise HTTPException(
+                    status_code=404,
+                    detail="The track you specified could not be found.",
+                )
+        else:
+            raise HTTPException(
+                status_code=404, detail="The track you specified could not be found."
+            )
+
+    response = await client.get_lyrics(id)
+    await client.session.aclose()
+
+    return TrackLyricsResponse(
+        text=response["LYRICS_TEXT"],
+        lines=[
+            LyricLine(
+                text=line["line"], start=line["milliseconds"], duration=line["duration"]
+            )
+            for line in response["LYRICS_SYNC_JSON"]
+            if "LYRICS_SYNC_JSON" in response.keys() and line["line"]
+        ],
+    )
+
+
+@router.get(
     "/track/download/{id}",
     summary="Download a track.",
     responses={
@@ -119,16 +169,16 @@ async def track_info(id: str) -> TrackInfoResponse:
     },
 )
 async def track_download(
-    request: Request, id: int, metadata: Optional[bool] = True
+    request: Request, id: int, image: Optional[bool] = True
 ) -> Response:
     """
     This endpoint is used to download a track. The audio codec is MP3, and the bitrate is 128kbps.
 
     The `id` path parameter is the ID of the track you want to download. You can get this ID by searching for a track using the `/search` endpoint.
 
-    The `metadata` parameter is used to determine whether or not to inject ID3 tags into the track. This makes the file size slightly larger and makes the request take longer to complete. It is enabled by default.
+    The `image` parameter is used to determine whether or not to inject image ID3 tag into the track. This makes the file size slightly larger and makes the request take longer to complete. It is enabled by default.
     """
-    redis_result = await redis.get(json.dumps({"track_id": id, "metadata": metadata}))
+    redis_result = await redis.get(json.dumps({"track_id": id, "image": image}))
     if redis_result:
         redis_result = json.loads(redis_result)
         file_name = redis_result["file_name"]
@@ -152,7 +202,7 @@ async def track_download(
     audio_streamer = client.download_track(track_info)
     audio_data = b"".join([a async for a in audio_streamer])
 
-    if metadata:
+    if image:
         audio_data = await inject_id3(client, track_info, audio_data)
 
     await client.session.aclose()
@@ -163,7 +213,7 @@ async def track_download(
         "file": base64.b64encode(audio_data).decode("utf-8"),
     }
     await redis.set(
-        json.dumps({"track_id": id, "metadata": metadata}), json.dumps(data)
+        json.dumps({"track_id": id, "image": image}), json.dumps(data)
     )
 
     file_name = track_info["SNG_TITLE"] + " - " + track_info["ART_NAME"] + ".mp3"

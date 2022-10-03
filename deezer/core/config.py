@@ -1,11 +1,11 @@
 import os
 import secrets
 
-auth_key = os.getenv("DEEZER_AUTH_KEY")
+auth_key = None # os.getenv("DEEZER_AUTH_KEY")
 if not auth_key:
-    print("DEEZER_AUTH_KEY is not set, generating a temporary random key. ")
-    auth_key = secrets.token_urlsafe(32)
-    print(f"Your temporary key is: {auth_key}")
+    print(
+        "DEEZER_AUTH_KEY is not set, allowing all requests. Do not use this in an environment where the port is exposed."
+    )
 
 master_key = os.getenv("DEEZER_MASTER_KEY")
 if not master_key:
