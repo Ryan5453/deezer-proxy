@@ -4,7 +4,7 @@ import json
 from typing import Optional
 
 from fastapi import HTTPException, Request
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import Response
 
 from deezer.core.config import *
 from deezer.core.models import (
@@ -31,7 +31,7 @@ from deezer.routers.v1.utils import *
         500: {"model": DeezerError},
     },
 )
-async def search(query: str) -> Union[SearchResults, JSONResponse]:
+async def search(query: str) -> Union[SearchResults, Response]:
     redis_result = await redis.get(
         json.dumps({"endpoint": "/v1/search", "query": query})
     )
@@ -39,7 +39,7 @@ async def search(query: str) -> Union[SearchResults, JSONResponse]:
         await redis.expire(
             json.dumps({"endpoint": "/v1/search", "query": query}), search_ttl
         )
-        return JSONResponse(content=redis_result, status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200)
 
     client = DeezerClient()
     await client.setup_client()
@@ -67,7 +67,7 @@ async def search(query: str) -> Union[SearchResults, JSONResponse]:
 )
 async def search_suggestions(
     query: str,
-) -> Union[SearchSuggestionsResponse, JSONResponse]:
+) -> Union[SearchSuggestionsResponse, Response]:
     redis_result = await redis.get(
         json.dumps({"endpoint": "/v1/search/suggestions", "query": query})
     )
@@ -76,7 +76,7 @@ async def search_suggestions(
             json.dumps({"endpoint": "/v1/search/suggestions", "query": query}),
             search_suggestions_ttl,
         )
-        return JSONResponse(content=redis_result, status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200)
 
     client = DeezerClient()
     await client.setup_client()
@@ -105,7 +105,7 @@ async def search_suggestions(
         500: {"model": DeezerError},
     },
 )
-async def track_info(id: str) -> Union[SearchSuggestionsResponse, JSONResponse]:
+async def track_info(id: str) -> Union[SearchSuggestionsResponse, Response]:
     """
     The `id` path parameter is the track ID. Alternatively, you can prefix an isrc with `isrc:` to get the track info for that isrc.
     Example: `/v1/track/info/isrc:USUM71900001`
@@ -116,7 +116,7 @@ async def track_info(id: str) -> Union[SearchSuggestionsResponse, JSONResponse]:
             json.dumps({"endpoint": "/v1/track/info", "id": id})
         )
         if redis_result:
-            return JSONResponse(content=redis_result, status_code=200)
+            return Response(content=redis_result.decode("utf8"), status_code=200)
 
     client = DeezerClient()
     await client.setup_client()
@@ -145,7 +145,7 @@ async def track_info(id: str) -> Union[SearchSuggestionsResponse, JSONResponse]:
     # Now we need to check redis again, because we have the the id
     redis_result = await redis.get(json.dumps({"endpoint": "/v1/track/info", "id": id}))
     if redis_result:
-        return JSONResponse(content=redis_result, status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200)
 
     response = await client.get_track_info(id)
     await client.session.aclose()
@@ -184,7 +184,7 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
             await redis.expire(
                 json.dumps({"endpoint": "/v1/track/lyrics", "id": id}), track_lyrics_ttl
             )
-            return JSONResponse(content=redis_result, status_code=200)
+            return Response(content=redis_result.decode("utf8"), status_code=200)
 
     client = DeezerClient()
     await client.setup_client()
@@ -217,7 +217,7 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
         await redis.expire(
             json.dumps({"endpoint": "/v1/track/lyrics", "id": id}), track_lyrics_ttl
         )
-        return JSONResponse(content=redis_result, status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200)
 
     response = await client.get_lyrics(id)
     await client.session.aclose()
