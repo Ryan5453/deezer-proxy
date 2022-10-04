@@ -113,6 +113,7 @@ class TrackSearchResult(BaseModel):
     artist: ArtistSearchResult
     album: AlbumSearchResult
     isrc: str = Field(..., example="USUG12002848")
+    duration: int = Field(..., example=201)
     has_lyrics: bool = Field(..., example=True)
     explicit: bool = Field(..., example=True)
 
