@@ -1,0 +1,593 @@
+{
+    "QUERY": "novo amor anchor",
+    "FUZZINNESS": false,
+    "AUTOCORRECT": false,
+    "ORDER": [
+        "TOP_RESULT",
+        "TRACK",
+        "ALBUM",
+        "PLAYLIST",
+        "ARTIST",
+        "LYRICS",
+        "SHOW",
+        "EPISODE",
+        "CHANNEL",
+        "LIVESTREAM",
+        "RADIO",
+        "USER"
+    ],
+    "TOP_RESULT": [],
+    "ARTIST": {
+        "data": [],
+        "count": 0,
+        "total": 0,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "ALBUM": {
+        "data": [
+            {
+                "ALB_ID": "150890412",
+                "ALB_TITLE": "Anchor",
+                "ALB_PICTURE": "49f18401084f5127ca0120a403e80491",
+                "ARTISTS": [
+                    {
+                        "ART_ID": "1085567",
+                        "ROLE_ID": "0",
+                        "ARTISTS_ALBUMS_ORDER": "0",
+                        "ART_NAME": "Steven Cravis",
+                        "ART_PICTURE": "f851273ef15e9a05a737f53ffbff56dd",
+                        "RANK": "141938",
+                        "LOCALES": [],
+                        "ARTIST_IS_DUMMY": false,
+                        "__TYPE__": "artist"
+                    }
+                ],
+                "AVAILABLE": true,
+                "VERSION": "",
+                "ART_ID": "1085567",
+                "ART_NAME": "Steven Cravis",
+                "EXPLICIT_ALBUM_CONTENT": {
+                    "EXPLICIT_LYRICS_STATUS": 0,
+                    "EXPLICIT_COVER_STATUS": 2
+                },
+                "PHYSICAL_RELEASE_DATE": "2020-05-21",
+                "TYPE": "0",
+                "SUBTYPES": {
+                    "isStudio": false,
+                    "isLive": false,
+                    "isCompilation": false,
+                    "isKaraoke": false
+                },
+                "ARTIST_IS_DUMMY": false,
+                "NUMBER_TRACK": "2",
+                "__TYPE__": "album"
+            }
+        ],
+        "count": 1,
+        "total": 1,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "TRACK": {
+        "data": [
+            {
+                "SNG_ID": "143602140",
+                "PRODUCT_TRACK_ID": "296959891",
+                "UPLOAD_ID": 0,
+                "SNG_TITLE": "Anchor",
+                "ART_ID": "5549375",
+                "PROVIDER_ID": "1",
+                "ART_NAME": "Novo Amor",
+                "ARTIST_IS_DUMMY": false,
+                "ARTISTS": [
+                    {
+                        "ART_ID": "5549375",
+                        "ROLE_ID": "0",
+                        "ARTISTS_SONGS_ORDER": "0",
+                        "ART_NAME": "Novo Amor",
+                        "ARTIST_IS_DUMMY": false,
+                        "ART_PICTURE": "7b8b843f7b6c3c8e223d336237a22c73",
+                        "RANK": "619644",
+                        "LOCALES": {
+                            "lang_en": {
+                                "name": "Novo Amor"
+                            },
+                            "lang_ja-hrkt": {
+                                "name": "\u30ce\u30fc\u30dc\u30a2\u30e2\u30fc\u30eb"
+                            },
+                            "lang_ja-jpan": {
+                                "name": "\u30ce\u30fc\u30f4\u30a9\u30fb\u30a2\u30e2\u30fc\u30eb"
+                            }
+                        },
+                        "__TYPE__": "artist"
+                    }
+                ],
+                "ALB_ID": "15556186",
+                "ALB_TITLE": "Bathing Beach",
+                "TYPE": 0,
+                "VIDEO": false,
+                "DURATION": "257",
+                "ALB_PICTURE": "a52d358225e49a47b37579eacb29a293",
+                "ART_PICTURE": "7b8b843f7b6c3c8e223d336237a22c73",
+                "RANK_SNG": "703938",
+                "FILESIZE_AAC_64": "0",
+                "FILESIZE_MP3_64": "0",
+                "FILESIZE_MP3_128": "4121494",
+                "FILESIZE_MP3_256": "0",
+                "FILESIZE_MP3_320": "0",
+                "FILESIZE_MP4_RA1": "0",
+                "FILESIZE_MP4_RA2": "0",
+                "FILESIZE_MP4_RA3": "0",
+                "FILESIZE_MHM1_RA1": "0",
+                "FILESIZE_MHM1_RA2": "0",
+                "FILESIZE_MHM1_RA3": "0",
+                "FILESIZE_FLAC": "0",
+                "FILESIZE": "4121494",
+                "GAIN": "-8.7",
+                "MEDIA_VERSION": "10",
+                "DISK_NUMBER": "1",
+                "TRACK_NUMBER": "3",
+                "TRACK_TOKEN": "AAAAAWM8oE9jPbmPGppMHPDjXcHEpw8sNiFkr0Y8pIgzvP3vab_r6Ekdz8oDCmteyjBS6vQwLd5uITcblSuGTxqsuHhm3p-zkn409mk7fdqvu91iCEDnZpFOFb-vLhfellJ_NdHK1R1H0f11J3lMSg",
+                "TRACK_TOKEN_EXPIRE": 1664989583,
+                "VERSION": "",
+                "MEDIA": [
+                    {
+                        "TYPE": "preview",
+                        "HREF": "https://cdns-preview-f.dzcdn.net/stream/c-fa526cf48d71722e8dbf90b891ed5327-10.mp3"
+                    }
+                ],
+                "EXPLICIT_LYRICS": "0",
+                "RIGHTS": {
+                    "STREAM_ADS_AVAILABLE": true,
+                    "STREAM_ADS": "2000-01-01",
+                    "STREAM_SUB_AVAILABLE": true,
+                    "STREAM_SUB": "2000-01-01"
+                },
+                "ISRC": "TCACI1562836",
+                "HIERARCHICAL_TITLE": "",
+                "SNG_CONTRIBUTORS": {
+                    "main_artist": [
+                        "Novo Amor"
+                    ],
+                    "composer": [
+                        "Ali Lacey",
+                        "Ed Tullet"
+                    ],
+                    "author": [
+                        "Ali Lacey",
+                        "Ed Tullet"
+                    ]
+                },
+                "LYRICS_ID": 49651212,
+                "EXPLICIT_TRACK_CONTENT": {
+                    "EXPLICIT_LYRICS_STATUS": 0,
+                    "EXPLICIT_COVER_STATUS": 2
+                },
+                "DATE_START": "2000-01-01",
+                "DATE_START_PREMIUM": "2000-01-01",
+                "S_MOD": 1,
+                "S_PREMIUM": 1,
+                "STATUS": 1,
+                "HAS_LYRICS": true,
+                "__TYPE__": "song"
+            },
+            {
+                "SNG_ID": "1784031257",
+                "PRODUCT_TRACK_ID": "1238187217",
+                "UPLOAD_ID": 0,
+                "SNG_TITLE": "Anchor",
+                "ART_ID": "165741487",
+                "PROVIDER_ID": "496",
+                "ART_NAME": "thepianokid",
+                "ARTIST_IS_DUMMY": false,
+                "ARTISTS": [
+                    {
+                        "ART_ID": "165741487",
+                        "ROLE_ID": "0",
+                        "ARTISTS_SONGS_ORDER": "1",
+                        "ART_NAME": "thepianokid",
+                        "ARTIST_IS_DUMMY": false,
+                        "ART_PICTURE": "a7280ccbf8549436b4f5542eb84fc334",
+                        "RANK": "160627",
+                        "LOCALES": [],
+                        "__TYPE__": "artist"
+                    }
+                ],
+                "ALB_ID": "325834797",
+                "ALB_TITLE": "Piano Covers Tribute to Novo Amor",
+                "TYPE": 0,
+                "VIDEO": false,
+                "DURATION": "267",
+                "ALB_PICTURE": "0cd3771d8a46937b3f6d91fcc9b3c7cf",
+                "ART_PICTURE": "a7280ccbf8549436b4f5542eb84fc334",
+                "RANK_SNG": "37162",
+                "FILESIZE_AAC_64": "0",
+                "FILESIZE_MP3_64": "0",
+                "FILESIZE_MP3_128": "4274049",
+                "FILESIZE_MP3_256": "0",
+                "FILESIZE_MP3_320": "0",
+                "FILESIZE_MP4_RA1": "0",
+                "FILESIZE_MP4_RA2": "0",
+                "FILESIZE_MP4_RA3": "0",
+                "FILESIZE_MHM1_RA1": "0",
+                "FILESIZE_MHM1_RA2": "0",
+                "FILESIZE_MHM1_RA3": "0",
+                "FILESIZE_FLAC": "0",
+                "FILESIZE": "4274049",
+                "GAIN": "-18.7",
+                "MEDIA_VERSION": "3",
+                "DISK_NUMBER": "1",
+                "TRACK_NUMBER": "1",
+                "TRACK_TOKEN": "AAAAAWM8oE9jPbmPKWXrEELidYG7qGiSH7aF4Nj_j2wLVeVFQC2Z-oJSMpZQKzF_NA_d9P460Di26_DZiizDDm5mzx7K15Z1jflMM-d9USNjWMt3A32IUsERQ3MjQs49o8c_PRD-2LIk1XQ2ziw",
+                "TRACK_TOKEN_EXPIRE": 1664989583,
+                "VERSION": "(Piano Version)",
+                "MEDIA": [
+                    {
+                        "TYPE": "preview",
+                        "HREF": "https://cdns-preview-4.dzcdn.net/stream/c-44c6d081b9a5cec1dfed67229eda04fd-3.mp3"
+                    }
+                ],
+                "EXPLICIT_LYRICS": "0",
+                "RIGHTS": {
+                    "STREAM_ADS_AVAILABLE": true,
+                    "STREAM_ADS": "2000-01-01",
+                    "STREAM_SUB_AVAILABLE": true,
+                    "STREAM_SUB": "2000-01-01"
+                },
+                "ISRC": "QZPJ32174853",
+                "HIERARCHICAL_TITLE": "",
+                "SNG_CONTRIBUTORS": {
+                    "main_artist": [
+                        "thepianokid"
+                    ],
+                    "author": [
+                        "Ali Meredith-Lacey and Edward Tullet"
+                    ],
+                    "composer": [
+                        "Ali Meredith-Lacey and Edward Tullet"
+                    ]
+                },
+                "LYRICS_ID": 0,
+                "EXPLICIT_TRACK_CONTENT": {
+                    "EXPLICIT_LYRICS_STATUS": 0,
+                    "EXPLICIT_COVER_STATUS": 2
+                },
+                "DATE_START": "2000-01-01",
+                "DATE_START_PREMIUM": "2000-01-01",
+                "S_MOD": 1,
+                "S_PREMIUM": 1,
+                "STATUS": 1,
+                "HAS_LYRICS": false,
+                "__TYPE__": "song"
+            },
+            {
+                "SNG_ID": "1603085772",
+                "PRODUCT_TRACK_ID": "1099651302",
+                "UPLOAD_ID": 0,
+                "SNG_TITLE": "Anchor (Novo Amor Mashup)",
+                "ART_ID": "168577077",
+                "PROVIDER_ID": "452",
+                "ART_NAME": "The Little Blue House",
+                "ARTIST_IS_DUMMY": false,
+                "ARTISTS": [
+                    {
+                        "ART_ID": "168577077",
+                        "ROLE_ID": "0",
+                        "ARTISTS_SONGS_ORDER": "1",
+                        "ART_NAME": "The Little Blue House",
+                        "ARTIST_IS_DUMMY": false,
+                        "ART_PICTURE": "ae99ac14f53d02ad779534e02870be39",
+                        "RANK": "21039",
+                        "LOCALES": [],
+                        "__TYPE__": "artist"
+                    }
+                ],
+                "ALB_ID": "283154092",
+                "ALB_TITLE": "Irene",
+                "TYPE": 0,
+                "VIDEO": false,
+                "DURATION": "208",
+                "ALB_PICTURE": "ae99ac14f53d02ad779534e02870be39",
+                "ART_PICTURE": "ae99ac14f53d02ad779534e02870be39",
+                "RANK_SNG": "3097",
+                "FILESIZE_AAC_64": "0",
+                "FILESIZE_MP3_64": "0",
+                "FILESIZE_MP3_128": "3336985",
+                "FILESIZE_MP3_256": "0",
+                "FILESIZE_MP3_320": "0",
+                "FILESIZE_MP4_RA1": "0",
+                "FILESIZE_MP4_RA2": "0",
+                "FILESIZE_MP4_RA3": "0",
+                "FILESIZE_MHM1_RA1": "0",
+                "FILESIZE_MHM1_RA2": "0",
+                "FILESIZE_MHM1_RA3": "0",
+                "FILESIZE_FLAC": "0",
+                "FILESIZE": "3336985",
+                "GAIN": "-13.2",
+                "MEDIA_VERSION": "3",
+                "DISK_NUMBER": "1",
+                "TRACK_NUMBER": "4",
+                "TRACK_TOKEN": "AAAAAWM8oE9jPbmPQ-tDFCjagHSN6U6aqMgxMzrESdDyW7r1en4O43HgfVJddrLE8f0LNtjREXO_UEjlT1GI2UmiV5oTfPSArLXJZ5wc0eZFLN9znGdhmUaa91Vzsn5UW5gjUCkQis_gTGPQPTU",
+                "TRACK_TOKEN_EXPIRE": 1664989583,
+                "VERSION": "",
+                "MEDIA": [
+                    {
+                        "TYPE": "preview",
+                        "HREF": "https://cdns-preview-1.dzcdn.net/stream/c-19a26c736a7ae87e6552046faa964c2f-3.mp3"
+                    }
+                ],
+                "EXPLICIT_LYRICS": "0",
+                "RIGHTS": {
+                    "STREAM_ADS_AVAILABLE": true,
+                    "STREAM_ADS": "2000-01-01",
+                    "STREAM_SUB_AVAILABLE": true,
+                    "STREAM_SUB": "2000-01-01"
+                },
+                "ISRC": "QZTAT2195271",
+                "HIERARCHICAL_TITLE": "",
+                "SNG_CONTRIBUTORS": {
+                    "main_artist": [
+                        "The Little Blue House"
+                    ],
+                    "composer": [
+                        "The Little Blue House"
+                    ]
+                },
+                "LYRICS_ID": 71497512,
+                "EXPLICIT_TRACK_CONTENT": {
+                    "EXPLICIT_LYRICS_STATUS": 0,
+                    "EXPLICIT_COVER_STATUS": 2
+                },
+                "DATE_START": "2000-01-01",
+                "DATE_START_PREMIUM": "2000-01-01",
+                "S_MOD": 1,
+                "S_PREMIUM": 1,
+                "STATUS": 1,
+                "HAS_LYRICS": true,
+                "__TYPE__": "song"
+            }
+        ],
+        "count": 3,
+        "total": 3,
+        "filtered_count": 1,
+        "filtered_items": [
+            1
+        ],
+        "next": 11
+    },
+    "PLAYLIST": {
+        "data": [
+            {
+                "PLAYLIST_ID": "6239838384",
+                "PARENT_PLAYLIST_ID": "6239838384",
+                "TYPE": "0",
+                "TITLE": "Anchor ",
+                "PARENT_USER_ID": "834509085",
+                "PARENT_USERNAME": "Ana\u00efs.Gou",
+                "PARENT_USER_PICTURE": "7c8dae67b050efb1ce5ae1d894ea894f",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "5da8f511c46bfc0681dd41aeb803a14e",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2019-07-18 15:57:30",
+                "DATE_MOD": "2019-07-18 15:57:30",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "6862120544",
+                "PARENT_PLAYLIST_ID": "6862120544",
+                "TYPE": "0",
+                "TITLE": "anchor",
+                "PARENT_USER_ID": "1259051184",
+                "PARENT_USERNAME": "Linnea",
+                "PARENT_USER_PICTURE": "5d4c64643173e692e673cdcdb66996b6",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "5da8f511c46bfc0681dd41aeb803a14e",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2019-11-23 17:49:38",
+                "DATE_MOD": "2019-11-23 17:49:38",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "7425950744",
+                "PARENT_PLAYLIST_ID": "7425950744",
+                "TYPE": "0",
+                "TITLE": "anchor",
+                "PARENT_USER_ID": "2009383066",
+                "PARENT_USERNAME": "Dayane.Oliveira",
+                "PARENT_USER_PICTURE": "cce88f9e9f2960d270af00d1d2487740",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "5da8f511c46bfc0681dd41aeb803a14e",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2020-03-24 14:36:52",
+                "DATE_MOD": "2020-03-24 14:36:53",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "8787096422",
+                "PARENT_PLAYLIST_ID": "8787096422",
+                "TYPE": "0",
+                "TITLE": "anchor",
+                "PARENT_USER_ID": "1574754086",
+                "PARENT_USERNAME": "nanan",
+                "PARENT_USER_PICTURE": "",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "a52d358225e49a47b37579eacb29a293",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2021-02-28 18:44:50",
+                "DATE_MOD": "2021-02-28 18:44:50",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "9826916242",
+                "PARENT_PLAYLIST_ID": "9826916242",
+                "TYPE": "0",
+                "TITLE": "Novo Amor",
+                "PARENT_USER_ID": "3657818982",
+                "PARENT_USERNAME": "roberto",
+                "PARENT_USER_PICTURE": "",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "a52d358225e49a47b37579eacb29a293",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 6,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2021-12-20 01:58:19",
+                "DATE_MOD": "2021-12-20 02:02:49",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "9937357602",
+                "PARENT_PLAYLIST_ID": "9937357602",
+                "TYPE": "0",
+                "TITLE": "Anchor",
+                "PARENT_USER_ID": "18031017",
+                "PARENT_USERNAME": "clemryll",
+                "PARENT_USER_PICTURE": "23dba476b9b0be16c79a9783f60be340",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "a52d358225e49a47b37579eacb29a293",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2022-01-19 20:12:34",
+                "DATE_MOD": "2022-01-19 20:12:34",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "10124264122",
+                "PARENT_PLAYLIST_ID": "10124264122",
+                "TYPE": "0",
+                "TITLE": "Anchor",
+                "PARENT_USER_ID": "2394422304",
+                "PARENT_USERNAME": "Adeline Potter",
+                "PARENT_USER_PICTURE": "",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "a52d358225e49a47b37579eacb29a293",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2022-03-12 16:11:28",
+                "DATE_MOD": "2022-03-12 16:11:29",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "10293417042",
+                "PARENT_PLAYLIST_ID": "10293417042",
+                "TYPE": "0",
+                "TITLE": "anchor",
+                "PARENT_USER_ID": "1417684622",
+                "PARENT_USERNAME": "elaay",
+                "PARENT_USER_PICTURE": "",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "a52d358225e49a47b37579eacb29a293",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2022-04-29 15:41:47",
+                "DATE_MOD": "2022-04-29 15:41:47",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "10595723942",
+                "PARENT_PLAYLIST_ID": "10595723942",
+                "TYPE": "0",
+                "TITLE": "Anchor- Novo Amor",
+                "PARENT_USER_ID": "5076196402",
+                "PARENT_USERNAME": "anonymous",
+                "PARENT_USER_PICTURE": "",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "ca51fffd9693b304a2d4608c84a5a4f5-db6e069fab8dfb004ee0a4535c976580-47d5136f19127001b0ebc001fa4d93b3-47d38a707544ad76a62672e9c3e4c512",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 7,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2022-08-07 02:04:56",
+                "DATE_MOD": "2022-08-07 02:05:00",
+                "__TYPE__": "playlist"
+            },
+            {
+                "PLAYLIST_ID": "10684214342",
+                "PARENT_PLAYLIST_ID": "10684214342",
+                "TYPE": "0",
+                "TITLE": "Anchor",
+                "PARENT_USER_ID": "1050690302",
+                "PARENT_USERNAME": "marie \u2728",
+                "PARENT_USER_PICTURE": "",
+                "STATUS": 0,
+                "PLAYLIST_PICTURE": "a52d358225e49a47b37579eacb29a293",
+                "PICTURE_TYPE": "cover",
+                "NB_SONG": 1,
+                "HAS_ARTIST_LINKED": false,
+                "DATE_ADD": "2022-09-07 05:25:57",
+                "DATE_MOD": "2022-09-07 05:25:58",
+                "__TYPE__": "playlist"
+            }
+        ],
+        "count": 10,
+        "total": 10,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "RADIO": {
+        "data": [],
+        "count": 0,
+        "total": 0,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "USER": {
+        "data": [],
+        "count": 0,
+        "total": 0,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "SHOW": {
+        "data": [],
+        "count": 0,
+        "total": 0,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "CHANNEL": {
+        "data": [],
+        "count": 0,
+        "total": 0
+    },
+    "LIVESTREAM": {
+        "data": [],
+        "count": 0,
+        "total": 0,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "EPISODE": {
+        "data": [],
+        "count": 0,
+        "total": 0,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    },
+    "LYRICS": {
+        "data": [],
+        "count": 0,
+        "total": 0,
+        "filtered_count": 0,
+        "filtered_items": [],
+        "next": 20
+    }
+}

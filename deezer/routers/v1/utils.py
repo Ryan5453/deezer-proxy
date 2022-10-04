@@ -141,6 +141,7 @@ def track_mapper(data: dict) -> TrackSearchResult:
         id=data["SNG_ID"],
         artist=artist_mapper(data),
         album=album_mapper(data),
+        duration=int(data["DURATION"]),
         isrc=data["ISRC"],
         has_lyrics=data["HAS_LYRICS"],
         explicit=data["EXPLICIT_LYRICS"] == "1",
