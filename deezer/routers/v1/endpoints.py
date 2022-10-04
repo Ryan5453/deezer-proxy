@@ -310,8 +310,7 @@ async def track_download(
                 content=process_range(file),
                 media_type="audio/mpeg",
                 headers={
-                    "Content-Disposition": f"attachment; filename={file_name}",
-                    "Content-Length": str(len(file)),
+                    "Content-Disposition": f"attachment; filename={file_name}"
                 },
             )
 
@@ -357,8 +356,7 @@ async def track_download(
             content=process_range(file),
             media_type="audio/mpeg",
             headers={
-                "Content-Disposition": f"attachment; filename={file_name}",
-                "Content-Length": str(len(file)),
+                "Content-Disposition": f"attachment; filename={file_name}"
             },
         )
 
@@ -390,7 +388,6 @@ async def track_download(
         content=process_range(audio_data),
         media_type="audio/mpeg",
         headers={
-            "Content-Disposition": f"attachment; filename={file_name}",
-            "Content-Length": str(len(audio_data)),
+            "Content-Disposition": f"attachment; filename={file_name}"
         },
     )
