@@ -280,7 +280,7 @@ async def track_download(
             if end:
                 end = int(end)
         except:
-            pass # We already set the range, so it'll fall back to the default range
+            pass  # We already set the range, so it'll fall back to the default range
 
     def process_range(data: bytes):
         if not end:
@@ -310,7 +310,9 @@ async def track_download(
                 content=process_range(file),
                 media_type="audio/mpeg",
                 headers={
-                    "Content-Disposition": f"attachment; filename={file_name}"
+                    "Content-Disposition": f"attachment; filename={file_name}".encode(
+                        "utf8"
+                    ).decode("latin1"),
                 },
             )
 
@@ -352,11 +354,14 @@ async def track_download(
             ),
             duration * 3,
         )
+
         return Response(
             content=process_range(file),
             media_type="audio/mpeg",
             headers={
-                "Content-Disposition": f"attachment; filename={file_name}"
+                "Content-Disposition": f"attachment; filename={file_name}".encode(
+                    "utf8"
+                ).decode("latin1"),
             },
         )
 
@@ -388,6 +393,8 @@ async def track_download(
         content=process_range(audio_data),
         media_type="audio/mpeg",
         headers={
-            "Content-Disposition": f"attachment; filename={file_name}"
+            "Content-Disposition": f"attachment; filename={file_name}".encode(
+                "utf8"
+            ).decode("latin1"),
         },
     )

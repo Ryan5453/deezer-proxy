@@ -63,12 +63,14 @@ async def inject_id3(
     audio.add(TALB(encoding=3, text=album_name))
     audio.add(TRCK(encoding=3, text=track_number))
     audio.add(TDRC(encoding=3, text=release_date))
-    
+
     if image:
         try:
             album_art = (await client.session.get(album_art_url)).read()
             audio.add(
-                APIC(encoding=3, mime="image/jpeg", type=3, desc="Cover", data=album_art)
+                APIC(
+                    encoding=3, mime="image/jpeg", type=3, desc="Cover", data=album_art
+                )
             )
         except Exception:
             pass  # In the case of an error, we don't want to fail the whole metadata injection because it's not that important
