@@ -42,7 +42,7 @@ DEEZER_AUTH_KEY=<KEY> # If you don't include this line, authentication will be d
 - (Optional) Create a virtual environment
 - Install the requirements with `pip install -r requirements.txt`
 - Install Redis
-- Set the environment variables (see above)
+- Set the environment variables (this is different for each OS, check the docker section for the variable names)
 - Run `uvicorn deezer:app`
 
 
