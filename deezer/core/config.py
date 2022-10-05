@@ -8,7 +8,7 @@ if not auth_key:
 
 master_key = os.getenv("DEEZER_MASTER_KEY")
 if not master_key:
-    master_key = "abc"
+    master_key = "abcdefghijklmnop"
     print("DEEZER_MASTER_KEY is not set, please set it to the correct value.")
     print("Track decryption will not work and MP3 files will be invalid.")
 
