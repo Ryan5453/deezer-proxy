@@ -8,7 +8,7 @@ app = FastAPI(
     redoc_url=None,
     dependencies=[Depends(get_api_key)],
     title="Deezer Proxy",
-    version="1.0.5",
+    version="1.0.6",
     description="A proxy for the Deezer API. It handles decryption, authentication, and documentation.",
 )
 

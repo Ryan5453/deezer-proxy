@@ -26,7 +26,6 @@ from deezer.routers.v1.utils import *
     responses={
         401: {"model": NoAuthorizationHeaderError},
         403: {"model": InvalidAuthorizationHeaderError},
-        404: {"model": TrackNotFoundError},
         422: {"model": ValidationError},
         500: {"model": DeezerError},
     },
@@ -39,7 +38,7 @@ async def search(query: str) -> Union[SearchResults, Response]:
         await redis.expire(
             json.dumps({"endpoint": "/v1/search", "query": query}), search_ttl
         )
-        return Response(content=redis_result.decode("utf8"), status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200, media_type="application/json")
 
     client = DeezerClient()
     await client.setup_client()
@@ -76,7 +75,7 @@ async def search_suggestions(
             json.dumps({"endpoint": "/v1/search/suggestions", "query": query}),
             search_suggestions_ttl,
         )
-        return Response(content=redis_result.decode("utf8"), status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200, media_type="application/json")
 
     client = DeezerClient()
     await client.setup_client()
@@ -116,7 +115,7 @@ async def track_info(id: str) -> Union[SearchSuggestionsResponse, Response]:
             json.dumps({"endpoint": "/v1/track/info", "id": id})
         )
         if redis_result:
-            return Response(content=redis_result.decode("utf8"), status_code=200)
+            return Response(content=redis_result.decode("utf8"), status_code=200, media_type="application/json")
 
     client = DeezerClient()
     await client.setup_client()
@@ -145,7 +144,7 @@ async def track_info(id: str) -> Union[SearchSuggestionsResponse, Response]:
     # Now we need to check redis again, because we have the the id
     redis_result = await redis.get(json.dumps({"endpoint": "/v1/track/info", "id": id}))
     if redis_result:
-        return Response(content=redis_result.decode("utf8"), status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200, media_type="application/json")
 
     response = await client.get_track_info(id)
     await client.session.aclose()
@@ -184,7 +183,7 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
             await redis.expire(
                 json.dumps({"endpoint": "/v1/track/lyrics", "id": id}), track_lyrics_ttl
             )
-            return Response(content=redis_result.decode("utf8"), status_code=200)
+            return Response(content=redis_result.decode("utf8"), status_code=200, media_type="application/json")
 
     client = DeezerClient()
     await client.setup_client()
@@ -217,7 +216,7 @@ async def track_lyrics(id: str) -> TrackLyricsResponse:
         await redis.expire(
             json.dumps({"endpoint": "/v1/track/lyrics", "id": id}), track_lyrics_ttl
         )
-        return Response(content=redis_result.decode("utf8"), status_code=200)
+        return Response(content=redis_result.decode("utf8"), status_code=200, media_type="application/json")
 
     response = await client.get_lyrics(id)
     await client.session.aclose()
