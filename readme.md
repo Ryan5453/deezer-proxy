@@ -20,6 +20,9 @@
     </a>
 </p>
 
+> [!WARNING]
+> This project is no longer supported. Deezer has changed their internal API so some endpoints may no longer work. However, it is relatively trivial to make this work again, if you are familiar with the internal Deezer API.
+
 ## Setup
 It's easiest to use this with docker. But, you can also run it without docker.
 
