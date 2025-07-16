@@ -9,7 +9,8 @@ It's easiest to use this with docker. But, you can also run it without docker.
 ### Docker
 - Git clone the repo
 - CD into the repo
-- Create an `.env` file with the following contents:```env
+- Create an .env file with the following contents:
+```env
 DEEZER_MASTER_KEY=<KEY> # You'll need to find this by yourself, sorry.
 DEEZER_REDIS_URL=redis://redis:6379/0
 DEEZER_SEARCH_TTL=10800
