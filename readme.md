@@ -1,24 +1,4 @@
-<h1 align="center">
-    deezer proxy
-</p>
-
-<p align="center">
-    <a href="https://github.com/ryan5453/deezer-proxy/stargazers">
-        <img src="https://img.shields.io/github/stars/ryan5453/deezer-proxy?style=social">
-    </a>
-    <a href="https://github.com/ryan5453/deezer-proxy/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/ryan5453/deezer-proxy">
-    </a>
-    <a href="https://python.org/">
-        <img src="https://img.shields.io/badge/python-3.9-blue">
-    </a>
-    <a href="https://github.com/ambv/black">
-        <img src="https://img.shields.io/badge/code%20style-black-black.svg">
-    </a>
-    <a href="https://github.com/PyCQA/isort">
-        <img src="https://img.shields.io/badge/imports-isort-black.svg">
-    </a>
-</p>
+# Deezer API Proxy
 
 > [!WARNING]
 > This project is no longer supported. Deezer has changed their internal API so some endpoints may no longer work. However, it is relatively trivial to make this work again, if you are familiar with the internal Deezer API.
@@ -29,8 +9,7 @@ It's easiest to use this with docker. But, you can also run it without docker.
 ### Docker
 - Git clone the repo
 - CD into the repo
-- Create an `.env` file with the following contents:
-```env
+- Create an `.env` file with the following contents:```env
 DEEZER_MASTER_KEY=<KEY> # You'll need to find this by yourself, sorry.
 DEEZER_REDIS_URL=redis://redis:6379/0
 DEEZER_SEARCH_TTL=10800
